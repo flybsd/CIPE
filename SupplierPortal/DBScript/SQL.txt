@@ -1,0 +1,533 @@
+/****** Object:  StoredProcedure [dbo].[usp_Portal_KanBanLBLGet]    Script Date: 06/24/2014 15:06:25 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[usp_Portal_KanBanLBLGet]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[usp_Portal_KanBanLBLGet]
+GO
+/****** Object:  StoredProcedure [dbo].[usp_Portal_NoteDelete]    Script Date: 06/24/2014 15:06:25 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[usp_Portal_NoteDelete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[usp_Portal_NoteDelete]
+GO
+/****** Object:  StoredProcedure [dbo].[usp_Portal_NoteListReason]    Script Date: 06/24/2014 15:06:25 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[usp_Portal_NoteListReason]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[usp_Portal_NoteListReason]
+GO
+/****** Object:  StoredProcedure [dbo].[usp_Portal_NoteList]    Script Date: 06/24/2014 15:06:25 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[usp_Portal_NoteList]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[usp_Portal_NoteList]
+GO
+/****** Object:  Table [dbo].[Portal_LBLFirst]    Script Date: 06/24/2014 15:06:27 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[Portal_LBLFirst]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE [dbo].[Portal_LBLFirst]
+GO
+/****** Object:  StoredProcedure [dbo].[usp_Portal_KanBanLBLGen]    Script Date: 06/24/2014 15:06:25 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[usp_Portal_KanBanLBLGen]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[usp_Portal_KanBanLBLGen]
+GO
+/****** Object:  StoredProcedure [dbo].[usp_Portal_NoteInsert]    Script Date: 06/24/2014 15:06:25 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[usp_Portal_NoteInsert]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[usp_Portal_NoteInsert]
+GO
+/****** Object:  Table [dbo].[Portal_LBLPRN]    Script Date: 06/24/2014 15:06:29 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[Portal_LBLPRN]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE [dbo].[Portal_LBLPRN]
+GO
+/****** Object:  Table [dbo].[Portal_LBLSecond]    Script Date: 06/24/2014 15:06:33 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[Portal_LBLSecond]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE [dbo].[Portal_LBLSecond]
+GO
+/****** Object:  Table [dbo].[Portal_Note]    Script Date: 06/24/2014 15:06:36 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[Portal_Note]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE [dbo].[Portal_Note]
+GO
+/****** Object:  Table [dbo].[Portal_NoteReasonCode]    Script Date: 06/24/2014 15:06:36 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[Portal_NoteReasonCode]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE [dbo].[Portal_NoteReasonCode]
+GO
+/****** Object:  Table [dbo].[Portal_LBLThird]    Script Date: 06/24/2014 15:06:34 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[Portal_LBLThird]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE [dbo].[Portal_LBLThird]
+GO
+/****** Object:  Table [dbo].[Portal_LBLThird]    Script Date: 06/24/2014 15:06:34 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[Portal_LBLThird]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
+BEGIN
+CREATE TABLE [dbo].[Portal_LBLThird](
+	[THIRDID] [int] IDENTITY(10001,1) NOT FOR REPLICATION NOT NULL,
+	[SECONDID] [int] NULL,
+	[QTY] [float] NULL,
+	[SEQN] [int] NULL,
+	[TDATE] [datetime] NULL CONSTRAINT [DF_Portal_ThirdLBL_TDATE]  DEFAULT (getdate()),
+	[GUID] [varchar](50) NULL,
+	[REF1] [nvarchar](50) NULL,
+	[REF2] [nvarchar](50) NULL,
+	[REF3] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Portal_ThirdLBL] PRIMARY KEY CLUSTERED 
+(
+	[THIRDID] ASC
+) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Portal_LBLSecond]    Script Date: 06/24/2014 15:06:33 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[Portal_LBLSecond]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
+BEGIN
+CREATE TABLE [dbo].[Portal_LBLSecond](
+	[SECONDID] [int] IDENTITY(101,1) NOT FOR REPLICATION NOT NULL,
+	[FIRSTID] [int] NULL,
+	[KBID] [int] NULL,
+	[ITEM] [varchar](50) NULL,
+	[ITEM_DESC] [varchar](100) NULL,
+	[LOT] [varchar](50) NULL,
+	[QTY] [float] NULL,
+	[PONO] [varchar](50) NULL,
+	[LNNO] [int] NULL,
+	[VEND_ID] [varchar](50) NULL,
+	[VEND_NAME] [varchar](100) NULL,
+	[SEQN] [varchar](50) NULL,
+	[MFG_DATE] [datetime] NULL,
+	[TDATE] [datetime] NULL CONSTRAINT [DF_Portal_SecondLBL_TDATE]  DEFAULT (getdate()),
+	[GUID] [varchar](50) NULL,
+	[REF1] [nvarchar](50) NULL,
+	[REF2] [nvarchar](50) NULL,
+	[REF3] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Portal_SecondLBL] PRIMARY KEY CLUSTERED 
+(
+	[SECONDID] ASC
+) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Portal_LBLPRN]    Script Date: 06/24/2014 15:06:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[Portal_LBLPRN]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
+BEGIN
+CREATE TABLE [dbo].[Portal_LBLPRN](
+	[TID] [int] IDENTITY(1,1) NOT NULL,
+	[ID] [int] NOT NULL,
+	[ITEM] [varchar](50) NULL,
+	[ITEM_DESC] [varchar](100) NULL,
+	[LOT] [varchar](50) NULL,
+	[QTY] [float] NULL,
+	[PONO] [varchar](50) NULL,
+	[LNNO] [int] NULL,
+	[VEND_ID] [varchar](50) NULL,
+	[VEND_NAME] [varchar](100) NULL,
+	[SEQN] [varchar](50) NULL,
+	[LV] [varchar](1) NULL,
+	[TDATE] [datetime] NULL CONSTRAINT [DF_Portal_LBLPRN_TDATE]  DEFAULT (getdate()),
+	[GUID] [varchar](50) NULL,
+	[REF1] [nvarchar](50) NULL,
+	[REF2] [nvarchar](50) NULL,
+	[REF3] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Portal_LBLPRN] PRIMARY KEY CLUSTERED 
+(
+	[TID] ASC
+) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_PADDING OFF
+GO
+
+/****** Object:  Table [dbo].[Portal_NoteReasonCode]    Script Date: 06/24/2014 15:06:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[Portal_NoteReasonCode]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
+BEGIN
+CREATE TABLE [dbo].[Portal_NoteReasonCode](
+	[ReasonCode] [nvarchar](500) NULL
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[Portal_LBLFirst]    Script Date: 06/24/2014 15:06:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[Portal_LBLFirst]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
+BEGIN
+CREATE TABLE [dbo].[Portal_LBLFirst](
+	[FIRSTID] [int] IDENTITY(10000,1) NOT FOR REPLICATION NOT NULL,
+	[TDATE] [datetime] NULL CONSTRAINT [DF_Portal_FirstLBL_TDATE]  DEFAULT (getdate()),
+	[REF1] [nvarchar](50) NULL,
+	[REF2] [nvarchar](50) NULL,
+	[REF3] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Portal_FirstLBL] PRIMARY KEY CLUSTERED 
+(
+	[FIRSTID] ASC
+) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[Portal_Note]    Script Date: 06/24/2014 15:06:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[Portal_Note]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
+BEGIN
+CREATE TABLE [dbo].[Portal_Note](
+	[NoteID] [int] IDENTITY(1,1) NOT NULL,
+	[VendorID] [varchar](50) NOT NULL,
+	[KBID] [int] NOT NULL,
+	[ConfirmedQuantity] [float] NOT NULL,
+	[Reason] [nvarchar](500) NULL,
+	[Body] [nvarchar](4000) NULL,
+	[NewPromisedTime] [datetime] NULL,
+	[ConfirmedTime] [datetime] NULL CONSTRAINT [DF_Portal_Note_ConfirmedTime]  DEFAULT (getdate()),
+	[IsRead] [int] NULL,
+	[REF1] [nvarchar](50) NULL,
+	[REF2] [nvarchar](50) NULL,
+	[REF3] [nvarchar](50) NULL
+) ON [PRIMARY]
+END
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  StoredProcedure [dbo].[usp_Portal_KanBanLBLGen]    Script Date: 06/24/2014 15:06:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[usp_Portal_KanBanLBLGen]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		CC
+-- Create date: 2014-6
+-- Description:	Generate 2/3 level vendor label
+-- =============================================
+CREATE PROCEDURE [dbo].[usp_Portal_KanBanLBLGen]
+	@kbid int,
+	@mfgqty float,
+	@mfgdate datetime
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+
+DECLARE @po AS VARCHAR (50), 
+@lnno AS INT, 
+@vendid AS VARCHAR(50),
+@vendname AS VARCHAR(500),
+@item AS VARCHAR (50), 
+@itemdesc AS VARCHAR (500), 
+@lot AS VARCHAR(50),
+@lbl_qty AS FLOAT, 
+@orderqty AS FLOAT, 
+@second_qty AS FLOAT, 
+@third_qty AS FLOAT, 
+@prn_id AS VARCHAR (50), 
+@sid AS INT, 
+@tid AS INT,
+@i AS INT, 
+@j AS INT, 
+@k AS INT;
+
+SELECT @lbl_qty=sum(t.QTY) from Portal_LBLSecond s left join Portal_LBLThird t 
+on s.SECONDID=t.SECONDID
+where s.KBID=@kbid
+
+
+SELECT @po = k.PONumber,
+       @lnno = k.LineNumber,
+       @vendid = k.VendorID,
+       @vendname = k.VendorName,
+	   @orderqty = k.OrderQuantity,
+       @item = i.ItemNumber,
+       @itemdesc = k.ItemDescription,
+       @second_qty = vi.VendorItemDocument, -- as SecondLevel
+       @third_qty = i.ItemShippingVolume --  as ThirdLevel
+FROM   Portal_KANBAN AS k
+       INNER JOIN
+       FS_VendorItem AS vi
+       ON k.VendorID = vi.VendorID
+          AND k.ItemNumber = vi.ItemNumber
+       INNER JOIN
+       FS_Item AS i
+       ON vi.ItemKey = i.ItemKey
+WHERE  k.KBID = @kbid;
+
+if @orderqty-isnull(@lbl_qty,0)>=@mfgqty
+BEGIN
+
+SET @lot = (convert(varchar(10),@mfgdate,12))+right(@po,14) 
+
+SET @prn_id = newid();
+
+WHILE @mfgqty >= @second_qty
+    BEGIN
+        INSERT  INTO Portal_LBLSecond (KBID, ITEM, LOT, PONO, LNNO, VEND_ID, QTY, VEND_NAME, ITEM_DESC, [GUID])
+        VALUES                       (@kbid, upper(@item), upper(@lot), upper(@po), @lnno, @vendid, @second_qty, @vendname, @itemdesc, @prn_id);
+
+        SELECT @sid = scope_identity();
+
+		INSERT INTO Portal_LBLPRN ([ID], ITEM, ITEM_DESC, LOT, QTY, PONO, LNNO, VEND_ID, VEND_NAME, SEQN, [GUID], LV)
+		VALUES(@sid, upper(@item), @itemdesc, upper(@lot), @second_qty, upper(@po), @lnno, @vendid, @vendname, @sid, @prn_id, ''S'')
+
+        SET @i = 1;
+        SET @j = @second_qty;
+        WHILE @j >= @third_qty
+            BEGIN
+                INSERT  INTO Portal_LBLThird (SECONDID, QTY, SEQN, [GUID])
+                VALUES                      (@sid, @third_qty, @i, @prn_id);
+
+				SELECT @tid = scope_identity();
+				INSERT INTO Portal_LBLPRN ([ID], ITEM, ITEM_DESC, LOT, QTY, PONO, LNNO, VEND_ID, VEND_NAME, SEQN, [GUID], LV)
+				VALUES(@tid, upper(@item), @itemdesc, upper(@lot), @third_qty, upper(@po), @lnno, @vendid, @vendname, cast(@sid AS VARCHAR(50)) +''-''+cast(@i AS VARCHAR(50)), @prn_id, ''T'')
+
+                SET @i = @i + 1;
+                SET @j = @j - @third_qty;
+            END
+        IF @j > 0
+            BEGIN
+                INSERT  INTO Portal_LBLThird (SECONDID, QTY, SEQN, [GUID])
+                VALUES                      (@sid, @j, @i, @prn_id);
+
+				SELECT @tid = scope_identity();
+				INSERT INTO Portal_LBLPRN ([ID], ITEM, ITEM_DESC, LOT, QTY, PONO, LNNO, VEND_ID, VEND_NAME, SEQN, [GUID], LV)
+				VALUES(@tid, upper(@item), @itemdesc, upper(@lot), @j, upper(@po), @lnno, @vendid, @vendname, cast(@sid AS VARCHAR(50)) +''-''+cast(@i AS VARCHAR(50)), @prn_id, ''T'')
+
+            END
+        SET @mfgqty = @mfgqty - @second_qty;
+    --select @cur_id=Scope_Identity()
+    --set @tot_id=@tot_id + @cur_id + '''',''''
+    END
+
+IF @mfgqty > 0
+    BEGIN
+        INSERT  INTO Portal_LBLSecond (KBID, ITEM, LOT, PONO, LNNO, VEND_ID, QTY, VEND_NAME, ITEM_DESC, [GUID])
+        VALUES                       (@kbid, upper(@item), upper(@lot), upper(@po), @lnno, @vendid, @mfgqty, @vendname, @itemdesc, @prn_id);
+        SELECT @sid = scope_identity();
+
+		INSERT INTO Portal_LBLPRN ([ID], ITEM, ITEM_DESC, LOT, QTY, PONO, LNNO, VEND_ID, VEND_NAME, SEQN, [GUID], LV)
+		VALUES(@sid, upper(@item), @itemdesc, upper(@lot), @mfgqty, upper(@po), @lnno, @vendid, @vendname, @sid, @prn_id, ''S'')
+
+
+
+        SET @i = 1;
+        SET @j = @mfgqty;
+        WHILE @j >= @third_qty
+            BEGIN
+                INSERT  INTO Portal_LBLThird (SECONDID, QTY, SEQN, [GUID])
+                VALUES                      (@sid, @third_qty, @i, @prn_id);
+
+				SELECT @tid = scope_identity();
+				INSERT INTO Portal_LBLPRN ([ID], ITEM, ITEM_DESC, LOT, QTY, PONO, LNNO, VEND_ID, VEND_NAME, SEQN, [GUID], LV)
+				VALUES(@tid, upper(@item), @itemdesc, upper(@lot), @third_qty, upper(@po), @lnno, @vendid, @vendname, cast(@sid AS VARCHAR(50)) +''-''+cast(@i AS VARCHAR(50)), @prn_id, ''T'')
+
+
+                SET @i = @i + 1;
+                SET @j = @j - @third_qty;
+            END
+        IF @j > 0
+            BEGIN
+                INSERT  INTO Portal_LBLThird (SECONDID, QTY, SEQN, [GUID])
+                VALUES                      (@sid, @j, @i, @prn_id);
+
+				SELECT @tid = scope_identity();
+				INSERT INTO Portal_LBLPRN ([ID], ITEM, ITEM_DESC, LOT, QTY, PONO, LNNO, VEND_ID, VEND_NAME, SEQN, [GUID], LV)
+				VALUES(@tid, upper(@item), @itemdesc, upper(@lot), @j, upper(@po), @lnno, @vendid, @vendname, cast(@sid AS VARCHAR(50)) +''-''+cast(@i AS VARCHAR(50)), @prn_id, ''T'')
+
+            END
+    END
+
+--select * from #CIPE_PRN
+UPDATE Portal_LBLPRN set TDATE=getdate() where [GUID]=@prn_id
+SELECT @prn_id AS GUID;
+END
+ELSE
+SELECT ''1'' AS GUID;
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[usp_Portal_NoteList]    Script Date: 06/24/2014 15:06:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[usp_Portal_NoteList]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+CREATE procedure [dbo].[usp_Portal_NoteList]
+--------------------------------------------------------
+--Author    : CC
+--Date      : 2014-06-24
+--function  : List Received Note
+--------------------------------------------------------
+(
+  @PageNum int,
+  @OrderBy varchar(200),
+  @PageSize int,
+  @UserID varchar(50)
+)
+ as 
+
+set nocount on
+
+declare @fieldkey varchar(50)
+set @fieldkey=''NoteID''
+
+declare @role varchar(50)
+select @role=Role from Portal_User where UserID=@UserID
+
+declare @sql nvarchar(4000)
+set @sql=N''1=1''
+
+if(@role<>''PurchaseManager'')
+begin
+
+   set @sql=@sql+N'' and v.VendorID=''''''+@UserID+''''''''
+
+    --end
+end
+
+exec usp_Portal_ShowInPage ''Portal_Note n inner join v_Portal_FSVendor v on n.VendorID=v.VendorID'',
+                           @OrderBy,
+                           ''NoteID, v.VendorName as VendorID, KBID, ConfirmedQuantity, Reason, Body, NewPromisedTime, ConfirmedTime'',
+                           @sql,
+                           @PageNum,
+                           @PageSize,
+                           @fieldkey
+
+set nocount off
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[usp_Portal_KanBanLBLGet]    Script Date: 06/24/2014 15:06:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[usp_Portal_KanBanLBLGet]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		cc
+-- Create date: 
+-- Description:	fetch printed vendor label history
+-- =============================================
+CREATE PROCEDURE [dbo].[usp_Portal_KanBanLBLGet]
+@kbid int
+AS
+BEGIN
+	SET NOCOUNT ON;
+select l.[GUID],l.TDATE AS PrintedDate, sum(l.QTY) AS PrintedQuantity from Portal_LBLPRN l inner join 
+(select distinct KBID,[GUID] from Portal_LBLSecond) s on l.[GUID]=s.[GUID]
+where l.LV=''S'' and s.KBID=@kbid
+group by l.[GUID], l.TDATE
+Order By l.TDATE DESC
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[usp_Portal_NoteListReason]    Script Date: 06/24/2014 15:06:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[usp_Portal_NoteListReason]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		CC
+-- Create date: 2014-06-24
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[usp_Portal_NoteListReason]
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT ReasonCode from Portal_NoteReasonCode
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[usp_Portal_NoteInsert]    Script Date: 06/24/2014 15:06:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[usp_Portal_NoteInsert]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		CC
+-- Create date: 2014-6-24
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[usp_Portal_NoteInsert]
+	-- Add the parameters for the stored procedure here
+	@VendorID as varchar(50)
+, @KBID as int
+, @ConfirmedQuantity as float
+, @Reason as nvarchar(500)
+, @Body as nvarchar(4000)
+, @NewPromisedTime as datetime
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+insert into Portal_Note (VendorID, KBID, ConfirmedQuantity, Reason, Body, NewPromisedTime)
+values (@VendorID, @KBID, @ConfirmedQuantity, @Reason, @Body, @NewPromisedTime)
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[usp_Portal_NoteDelete]    Script Date: 06/24/2014 15:06:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[usp_Portal_NoteDelete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+CREATE procedure [dbo].[usp_Portal_NoteDelete]
+---------------------------------------------------
+--Author  : CC
+--Date    : 2014-06-24
+--Function: Delete Note
+---------------------------------------------------
+( 
+  @NoteID bigint
+)
+as
+
+set nocount on
+
+delete from Portal_Note
+where NoteID=@NoteID
+
+
+
+set nocount off
+' 
+END
+GO
